@@ -14,14 +14,15 @@ body {
 }
 .content-container {
     margin-top: 1rem;
-    background-color: #2d002f;
-    border: 0.05rem solid rgb(67, 0, 71);
-    border-radius: 5px;
-    padding: 0.4rem;
 }
 
 .content-row {
     white-space: nowrap;
+    margin-top: 2rem;
+    background-color: #2d002f;
+    border: 0.05rem solid rgb(67, 0, 71);
+    border-radius: 5px;
+    padding: 0.4rem;
 }
 
 a {
@@ -29,3 +30,31 @@ a {
     color: #bfbfbf;
 }
 
+button {
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+#reset-data-btn {
+    background-color: #690000;
+    color: #bfbfbf;
+    border-radius: 4px;
+}
+
+#reset-data-btn:hover {
+    cursor: pointer;
+    background-color: #f00;
+    color: #dcdcdc;
+}
+
+.alert-row {
+    font-size: 1.1rem;
+    color: #ffff00;
+    border: 0.1rem solid #ffff00;
+    padding: 0.3rem;
+}
+
+#storage-use-progress {
+    width: 100%;
+    height: 2rem;
+}

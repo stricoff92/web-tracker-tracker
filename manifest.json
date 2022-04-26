@@ -11,7 +11,8 @@
       "https://*/*"
     ],
     "permissions": [
-        "webRequest"
+        "webRequest",
+        "storage"
     ],
     "content_scripts": [],
     "action": {
