@@ -89,18 +89,20 @@ async function enrichCompletedQuery(query) {
         }
     }
 
+    // Parse request/response cookies
+
+
     // check for cross origin
     if (query.frameId > 0) {
         query.isCrossDomain = true;
     } else {
         query.host = (new URL(query.url)).host;
         const instigatorHost = (new URL(query.initiator)).host;
+        const hostParts = query.host.split(".").splice(query.host.split(".").length - 2);
+        const instigatorHostParts = instigatorHost.split(".").splice(instigatorHost.split(".").length - 2)
         query.isCrossDomain = Boolean(
             query.host !== (new URL(query.initiator)).host
-            || (
-                query.host.split(".").splice(query.host.split(".").length - 2)
-                !== instigatorHost.split(".").splice(instigatorHost.split(".").length - 2)
-            )
+            && JSON.stringify(hostParts) !== JSON.stringify(instigatorHostParts)
         );
     }
 
@@ -121,7 +123,7 @@ chrome.webRequest.onErrorOccurred.addListener(data => {
 chrome.webRequest.onSendHeaders.addListener(data => {
     const key = `req${data.requestId}`;
     chrome.storage.local.set({[key]: data});
-}, filters, ["requestHeaders"]);
+}, filters, ["requestHeaders", "extraHeaders"]);
 
 
 chrome.webRequest.onBeforeRequest.addListener(data => {
@@ -177,4 +179,4 @@ chrome.webRequest.onCompleted.addListener(data => {
         });
     };
     inner(0)
-}, filters, ["responseHeaders"]);
+}, filters, ["responseHeaders", "extraHeaders"]);
