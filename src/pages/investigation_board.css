@@ -1,0 +1,16 @@
+
+.page-heading {
+    font-weight: bold;
+    font-size: 1.85rem;
+    display: flex;
+    justify-content: center;
+}
+.page-sub-heading {
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+}
+
+.page-content {
+    margin:1rem;
+}

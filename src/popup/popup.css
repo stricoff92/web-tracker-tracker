@@ -1,0 +1,31 @@
+
+body {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #240026;
+    color: #bfbfbf;
+}
+
+.popup-heading {
+    font-weight: bold;
+    font-size: 1.4rem;
+    display: flex;
+    justify-content: center;
+    white-space: nowrap;
+}
+.content-container {
+    margin-top: 1rem;
+    background-color: #2d002f;
+    border: 0.05rem solid rgb(67, 0, 71);
+    border-radius: 5px;
+    padding: 0.4rem;
+}
+
+.content-row {
+    white-space: nowrap;
+}
+
+a {
+    font-size: 1.1rem;
+    color: #bfbfbf;
+}
+
