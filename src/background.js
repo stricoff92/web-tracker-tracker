@@ -114,13 +114,19 @@ async function enrichCompletedQuery(query) {
         reqID : the chrome request id
 */
 
-chrome.webRequest.onErrorOccurred.addListener(data => {
+chrome.webRequest.onErrorOccurred.addListener(async data => {
+    const queryOptions = { active: true, currentWindow: true };
+    const [tab] = await chrome.tabs.query(queryOptions);
+    if(tab.id != data.tabId) {
+        return;
+    }
     const key = `req${data.requestId}`;
     chrome.storage.local.remove([key]);
 }, filters, []);
 
 
 chrome.webRequest.onSendHeaders.addListener(data => {
+    console.log({data})
     const key = `req${data.requestId}`;
     chrome.storage.local.set({[key]: data});
 }, filters, ["requestHeaders", "extraHeaders"]);
@@ -140,10 +146,10 @@ chrome.webRequest.onBeforeRequest.addListener(data => {
             const request = results[key];
             if(supportsBody(data.method) && hasRawBody(data)) {
                 let parts = [];
-                data.requestBody.raw.forEach(data => {
+                data.requestBody.raw.forEach(row => {
                     let bodyStr;
                     try {
-                        bodyStr = new TextDecoder().decode(data.bytes);
+                        bodyStr = new TextDecoder().decode(row.bytes);
                     } catch (err) {
                         console.warn("could not decode body")
                     }
@@ -180,3 +186,9 @@ chrome.webRequest.onCompleted.addListener(data => {
     };
     inner(0)
 }, filters, ["responseHeaders", "extraHeaders"]);
+
+chrome.tabs.onActivated.addListener(async activeInfo => {
+    let queryOptions = { active: true, currentWindow: true };
+    let [tab] = await chrome.tabs.query(queryOptions);
+    console.log({activeInfo})
+});

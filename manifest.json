@@ -12,7 +12,8 @@
     ],
     "permissions": [
         "webRequest",
-        "storage"
+        "storage",
+        "tabs"
     ],
     "content_scripts": [],
     "action": {
